@@ -60,7 +60,7 @@ def update_proj(request, pk):
 
 def delete_proj(request, pk):
     project = Project.objects.get(id=pk)
-    if request.method == 'POST':
+    if request.method == 'POST  ':
         project.delete()
         return redirect('projects')
     context = {
