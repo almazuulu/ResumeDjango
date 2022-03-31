@@ -4,13 +4,27 @@
 <h1> Шаблон для проекта </h1>
 
 <h2>Здесь вы можете взглянуть на все мои проекты: </h2>
-<ul>
+<table>
+    <tr>
+        <th> Название проекта</th>
+        <th> Описание проекта</th>
+        <th> Дата создания проекта</th>
+        <th>Операции</th>
+    </tr>
 {% for project in projectslist %}
+    <tr>
+        <td>{{project.title}}</td>
+        <td><a href="{% url 'project' project.id %}">{{ project.description }}</a></td>
+        <td>{{project.created}}</td>
+        <td> <a href="{% url 'updateproject' project.id %}"> Обновить проект </a>
+            <a href="{% url 'deleteproject' project.id %}"> Удалить проект </a>
+        </td>
+    <tr>
 
-    <li>Name: {{project.title}} -- <a href="{% url 'project' project.id %}">{{ project.description }}</a></li>
+
 
 {% endfor %}
-</ul>
+</table>
 <br>
 
 </p>

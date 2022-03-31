@@ -4,4 +4,14 @@
 {% block content %}
 <h1> {{ project.title }} </h1>
 <p>{{ project.description }}</p>
+
+<table>
+        <tr>
+            <td>{{project.created}}</td>
+        </tr>
+</table>
+
+ {% for tag in project.tags.all %}
+                <span style="border: 2px solid green;">{{tag}}</span>
+                {% endfor %}
 {% endblock content %}

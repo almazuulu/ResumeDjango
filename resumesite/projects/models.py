@@ -43,7 +43,6 @@ class Review(models.Model):
         verbose_name_plural = 'Отзывы'
 
 
-
 class Tag(models.Model):
     name = models.CharField(max_length=200, verbose_name='Имя тэга')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания тэга')  # generate autimcally date
