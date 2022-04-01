@@ -5,6 +5,7 @@ import uuid
 class Project(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название Проекта')
     description = models.TextField(null = True, blank=True, verbose_name='Описание проекта') #blank means we can submit withou being be filled
+    featured_image = models.ImageField(null=True, blank=True, default="images/default.jpeg")
     demo_link = models.CharField(max_length= 2000, null=True, blank=True, verbose_name='Демо ссылка')
     source_link = models.CharField(max_length=2000, null=True, blank=True, verbose_name='Ссылка на проект')
     tags = models.ManyToManyField('Tag', blank=True, verbose_name='Тэги')
