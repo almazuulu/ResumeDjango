@@ -8,7 +8,6 @@ from .forms import ProjectForm
 def projects(request):
     someName  = 'Askarbek'
     all_projects = Project.objects.all()
-
     context = {
         'name': someName,
         'projectslist': all_projects

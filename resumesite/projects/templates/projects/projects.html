@@ -5,12 +5,7 @@
 
 <h2>Здесь вы можете взглянуть на все мои проекты: </h2>
 <table>
-    <tr>
-        <th> Название проекта</th>
-        <th> Описание проекта</th>
-        <th> Дата создания проекта</th>
-        <th>Операции</th>
-    </tr>
+
 {% for project in projectslist %}
     <tr>
         <td>{{project.title}}</td>
@@ -28,4 +23,63 @@
 <br>
 
 </p>
+
+  <main class="projects">
+    <section class="hero-section text-center">
+      <div class="container container--narrow">
+        <div class="hero-section__box">
+          <h2>Искать <span>Проекты</span></h2>
+        </div>
+
+        <div class="hero-section__search">
+          <form class="form" action="#" method="get">
+            <div class="form__field">
+              <label for="formInput#search">Искать по проектам </label>
+              <input class="input input--text" id="formInput#search" type="text" name="text"
+                placeholder="Искать по заголовку или названию проекта" />
+            </div>
+
+            <input class="btn btn--sub btn--lg" type="submit" value="Поиск" />
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- Search Result: DevList -->
+    <section class="projectsList">
+      <div class="container">
+        <div class="grid grid--three">
+            {% for project in projectslist %}
+              <div class="column">
+                <div class="card project">
+                  <a href="{% url 'project' project.id %}" class="project">
+                    <img class="project__thumbnail" src="{{ project.featured_image.url }}" alt="project thumbnail" />
+                    <div class="card__body">
+                      <h3 class="project__title">{{project.title}}</h3>
+                      <p><a class="project__author" href="profile.html">By Dennis Ivanov</a></p>
+
+                        <p class="project--rating">
+                        <span style="font-weight: bold;">{{project.vote_ratio}}%</span> ({{project.vote_total }} Отзыв{{ project.vote_total|pluralize:"ов" }})
+                      </p>
+
+                      <div class="project__tags">
+                        {% for tag in project.tags.all %}
+                                <span class="tag tag--pill tag--main">
+                                  <small>{{tag}} </small>
+                                </span>
+
+                          {% endfor %}
+                  </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            {% endfor %}
+
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
 {% endblock %}
