@@ -1,8 +1,10 @@
 from django.db import models
+from users.models import Profile
 import uuid
 
 # Create your models here
 class Project(models.Model):
+    owner = models.ForeignKey(Profile, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Автор')
     title = models.CharField(max_length=200, verbose_name='Название Проекта')
     description = models.TextField(null = True, blank=True, verbose_name='Описание проекта') #blank means we can submit withou being be filled
     featured_image = models.ImageField(null=True, blank=True, default="images/default.jpeg")

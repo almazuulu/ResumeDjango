@@ -8,7 +8,8 @@ from .models import *
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'created')
+    list_display = ('title', 'owner', 'description', 'created')
+
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
