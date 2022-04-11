@@ -24,7 +24,7 @@ class Profile(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return str(self.username)
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -38,7 +38,7 @@ class Skill(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, blank=True, primary_key=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     class Meta:
         verbose_name = 'Навык'
