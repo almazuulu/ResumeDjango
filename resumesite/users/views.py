@@ -4,8 +4,11 @@ from django.contrib import messages
 from .models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
+from .forms import Profileform
 
 def loginPage(request):
+    page = 'login'
+
     if request.user.is_authenticated:
         return redirect('profiles')
 
@@ -26,14 +29,40 @@ def loginPage(request):
        else:
            messages.error(request,'Имя пользователя или пароль не совпадают!')
 
+    context = {
+        'page': page,
+    }
 
-    return render(request, 'users/login_register.html')
+    return render(request, 'users/login_register.html', context)
 
 
 def logoutProfile(request):
     logout(request)
     messages.error(request, 'Пользователь успешно вышел!')
     return render(request, 'users/login_register.html' )
+
+def registerUser(request):
+    page = 'register'
+    form = Profileform()
+    context = {
+      'page':page,
+      'form':form
+    }
+
+    if request.method == 'POST':
+        form = Profileform(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+
+            messages.success(request, 'Пользователь успешно зарегистрирован!')
+
+            login(request, user)
+            return redirect('profiles')
+        else:
+            messages.success(request, 'Произошла ошибка во время регистрации пользователя!')
+    return render(request, 'users/login_register.html', context=context)
 
 # Create your views here.
 def profiles(requests):
