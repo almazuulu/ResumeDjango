@@ -38,7 +38,7 @@ def loginPage(request):
 
 def logoutProfile(request):
     logout(request)
-    messages.error(request, 'Пользователь успешно вышел!')
+    messages.info(request, 'Пользователь успешно вышел!')
     return render(request, 'users/login_register.html' )
 
 def registerUser(request):
@@ -61,7 +61,7 @@ def registerUser(request):
             login(request, user)
             return redirect('profiles')
         else:
-            messages.success(request, 'Произошла ошибка во время регистрации пользователя!')
+            messages.error(request, 'Произошла ошибка во время регистрации пользователя!')
     return render(request, 'users/login_register.html', context=context)
 
 # Create your views here.
