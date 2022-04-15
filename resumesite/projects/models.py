@@ -7,7 +7,7 @@ class Project(models.Model):
     owner = models.ForeignKey(Profile, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Автор')
     title = models.CharField(max_length=200, verbose_name='Название Проекта')
     description = models.TextField(null = True, blank=True, verbose_name='Описание проекта') #blank means we can submit withou being be filled
-    featured_image = models.ImageField(null=True, blank=True, default="images/default.jpeg")
+    featured_image = models.ImageField(null=True, blank=True, default="default.jpg")
     demo_link = models.CharField(max_length= 2000, null=True, blank=True, verbose_name='Демо ссылка')
     source_link = models.CharField(max_length=2000, null=True, blank=True, verbose_name='Ссылка на проект')
     tags = models.ManyToManyField('Tag', blank=True, verbose_name='Тэги')

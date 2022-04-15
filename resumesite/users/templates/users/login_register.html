@@ -62,8 +62,8 @@
           <a href="/">
             <img src="{% static 'images/logo.png' %} " alt="icon" width="40" height="100"/>
           </a>
-          <h3>Account Login</h3>
-          <p>Hello Developer, Welcome Back!</p>
+          <h3>Зайти в аккаунт</h3>
+          <p>Здравствуйте, мы рады видеть Вас вновь!</p>
         </div>
 
         <form method="POST" action="{% url 'login' %}" class="form auth__form">
@@ -71,19 +71,19 @@
 
             <!-- Input:Username -->
           <div class="form__field">
-            <label for="formInput#text">Username: </label>
+            <label for="formInput#text">Имя пользователя: </label>
             <input
               class="input input--text"
               id="formInput#text"
               type="text"
               name="username"
-              placeholder="Enter your username..."
+              placeholder="Введите имя пользователя..."
             />
           </div>
 
           <!-- Input:Password -->
           <div class="form__field">
-            <label for="formInput#password">Password: </label>
+            <label for="formInput#password">Пароль: </label>
             <input
               class="input input--password"
               id="formInput#passowrd"
@@ -93,13 +93,13 @@
             />
           </div>
           <div class="auth__actions">
-            <input class="btn btn--sub btn--lg" type="submit" value="Log In" />
-            <a href="forgetpassword.html">Forget Password?</a>
+            <input class="btn btn--sub btn--lg" type="submit" value="Зайти" />
+            <a href="forgetpassword.html">Забыли пароль?</a>
           </div>
         </form>
         <div class="auth__alternative">
-          <p>Don’t have an Account?</p>
-          <a href="{% url 'register' %}">Sign Up</a>
+          <p>Нет аккаунта?</p>
+          <a href="{% url 'register' %}">Регистрация</a>
         </div>
       </div>
     </div>
