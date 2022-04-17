@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<h1> Search result </h1>
+
+<table>
+    {% for project in projects %}
+    <tr>
+        <td> Title: {{ project.title }}</td>
+        <td> Description: {{project.description}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+

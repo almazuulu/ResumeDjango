@@ -8,4 +8,5 @@ urlpatterns = [
     path('createform', views.create_proj, name = 'createform'),
     path('updateform/<str:pk>', views.update_proj, name='updateproject'),
     path('deleteform/<str:pk>', views.delete_proj, name='deleteproject')
+    #path('searchproject', views.search_proj, name='searchproj')
 ]

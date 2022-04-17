@@ -64,16 +64,22 @@ def registerUser(request):
             messages.error(request, 'Произошла ошибка во время регистрации пользователя!')
     return render(request, 'users/login_register.html', context=context)
 
-# Create your views here.
-def profiles(requests):
-    profiles = Profile.objects.all()
 
+def profiles(requests):
+    search_query = ''
+
+    if requests.GET.get('search_query'):
+         search_query = requests.GET.get('search_query')
+
+    print(f'Result: {search_query}')
+
+
+    profiles = Profile.objects.filter(name__icontains = search_query)
 
     context = {
         'profiles': profiles
     }
     return render(requests,'users/profiles.html', context=context)
-
 
 def profile(requests, pk):
     profile = Profile.objects.get(id = pk)

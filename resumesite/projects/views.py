@@ -76,3 +76,31 @@ def delete_proj(request, pk):
         "object": project
     }
     return render(request, 'delete_form.html', context)
+
+#def search_proj(request):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        submitbutton = request.GET.get('submit')
+
+        if query is not None:
+            # lookups = Project(title__icontains=query)
+
+            projects = Project.objects.filter(title__startswith = query)
+
+            context = {
+                 'projects': projects
+             }
+
+            return render(request, 'projects/search_result.html', context)
+    # projects = None
+    # if request.method == 'POST':
+    #     projects = Project.objects.filter(title__startswith = request.POST)
+    #
+    #     return redirect('searchproj')
+    #
+    #
+    # context = {
+    #     'projects': projects
+    # }
+
+    return render(request, 'projects/search_result.html')
