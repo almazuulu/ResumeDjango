@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponse
+from .utils import search_project
 
 from .models import *
 from .forms import ProjectForm
@@ -8,11 +10,10 @@ from .forms import ProjectForm
 # Create your views here.
 
 def projects(request):
-    someName  = 'Askarbek'
-    all_projects = Project.objects.all()
+    all_projects, search_query = search_project(request)
     context = {
-        'name': someName,
-        'projectslist': all_projects
+        'projectslist': all_projects,
+        'search_query': search_query
     }
     return render(request, 'projects/projects.html', context= context)
 
@@ -78,20 +79,20 @@ def delete_proj(request, pk):
     return render(request, 'delete_form.html', context)
 
 #def search_proj(request):
-    if request.method == 'GET':
-        query = request.GET.get('q')
-        submitbutton = request.GET.get('submit')
-
-        if query is not None:
-            # lookups = Project(title__icontains=query)
-
-            projects = Project.objects.filter(title__startswith = query)
-
-            context = {
-                 'projects': projects
-             }
-
-            return render(request, 'projects/search_result.html', context)
+    # if request.method == 'GET':
+    #     query = request.GET.get('q')
+        # submitbutton = request.GET.get('submit')
+        #
+        # if query is not None:
+        #     # lookups = Project(title__icontains=query)
+        #
+        #     projects = Project.objects.filter(title__startswith = query)
+        #
+        #     context = {
+        #          'projects': projects
+        #      }
+        #
+        #     return render(request, 'projects/search_result.html', context)
     # projects = None
     # if request.method == 'POST':
     #     projects = Project.objects.filter(title__startswith = request.POST)
@@ -103,4 +104,4 @@ def delete_proj(request, pk):
     #     'projects': projects
     # }
 
-    return render(request, 'projects/search_result.html')
+    # return render(request, 'projects/search_result.html')

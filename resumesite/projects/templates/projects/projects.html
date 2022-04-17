@@ -22,15 +22,14 @@
         </div>
 
         <div class="hero-section__search">
-          <form class="form" method="GET" action="{% url 'searchproj' %}">
+          <form class="form" method="GET" action="{% url 'projects' %}">
             {% csrf_token %}
             <div class="form__field">
               <label for="formInput#search">Искать по проектам </label>
-              <input class="input input--text" id="formInput#search" type="text" name="text"
-                placeholder="Искать по заголовку или названию проекта" value="#">
+              <input class="input input--text" id="formInput#search" type="text" name="search_query" placeholder="Искать по заголовку или названию проекта" value="{{ search_query }}">
             </div>
 
-            <input class="btn btn--sub btn--lg" type="submit" value="submit" />
+            <input class="btn btn--sub btn--lg" type="submit" value="Искать проект" />
           </form>
         </div>
       </div>
