@@ -2,9 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Profile, Skill
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from .forms import Profileform, ProfileEditForm, SkillForm
+from .utils import searchProfiles
 
 def loginPage(request):
     page = 'login'
@@ -66,18 +68,11 @@ def registerUser(request):
 
 
 def profiles(requests):
-    search_query = ''
-
-    if requests.GET.get('search_query'):
-         search_query = requests.GET.get('search_query')
-
-    print(f'Result: {search_query}')
-
-
-    profiles = Profile.objects.filter(name__icontains = search_query)
+    profiles, search_query = searchProfiles(requests)
 
     context = {
-        'profiles': profiles
+        'profiles': profiles,
+        'search_query':search_query
     }
     return render(requests,'users/profiles.html', context=context)
 
