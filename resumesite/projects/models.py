@@ -24,8 +24,27 @@ class Project(models.Model):
         verbose_name = 'Проект'
         verbose_name_plural = "Проекты"
 
-        ordering = ['created']
+        ordering = ['-vote_total', '-vote_ratio', 'title']
         #ordering = ['-created'] - Сортировка по убыванию
+
+    @property
+    def getVotedCount(self):
+        reviews = self.review_set.all()
+        up_votes = reviews.filter(value='up').count()
+        totalVotes = reviews.count()
+
+        ratio = (up_votes / totalVotes) * 100
+
+        self.vote_total = totalVotes
+        self.vote_ratio = ratio
+        self.save()
+
+    @property
+    def reviewers(self):
+        queryset = self.review_set.all().values_list('owner_id', flat = True)
+
+        return queryset
+
 
 class Review(models.Model):
     VOTE_TYPE = (
@@ -33,7 +52,7 @@ class Review(models.Model):
         ('down', 'Down Vote'),
     )
 
-    #owner =
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     project = models.ForeignKey(Project, on_delete = models.CASCADE, verbose_name='Проект')
     body = models.TextField(null=True, blank = True, verbose_name='Отзыв')
     value = models.CharField(max_length=200, choices = VOTE_TYPE, verbose_name='Значение')
@@ -47,6 +66,10 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+
+        unique_together = [['owner', 'project']]
+
+
 
 
 class Tag(models.Model):
