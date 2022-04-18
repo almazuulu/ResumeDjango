@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse
-from .utils import search_project
+from .utils import search_project, paginateProject
+
 
 from .models import *
 from .forms import ProjectForm
@@ -11,9 +12,14 @@ from .forms import ProjectForm
 
 def projects(request):
     all_projects, search_query = search_project(request)
+    results = 3
+
+    custom_range, all_projects = paginateProject(request,all_projects, results)
+
     context = {
         'projectslist': all_projects,
-        'search_query': search_query
+        'search_query': search_query,
+        'custom_range': custom_range
     }
     return render(request, 'projects/projects.html', context= context)
 

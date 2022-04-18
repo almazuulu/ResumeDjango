@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from .forms import Profileform, ProfileEditForm, SkillForm
-from .utils import searchProfiles
+from .utils import searchProfiles, paginateProfiles
 
 def loginPage(request):
     page = 'login'
@@ -70,9 +70,14 @@ def registerUser(request):
 def profiles(requests):
     profiles, search_query = searchProfiles(requests)
 
+    results = 6
+
+    custom_range, profiles = paginateProfiles(requests, profiles, results)
+
     context = {
         'profiles': profiles,
-        'search_query':search_query
+        'search_query':search_query,
+        'custom_range': custom_range
     }
     return render(requests,'users/profiles.html', context=context)
 
@@ -148,7 +153,7 @@ def updateSkills(request, pk):
     form = SkillForm(instance=skill)
 
     if request.method == 'POST':
-        form  =  SkillForm(request.POST, instance=skill)
+        form = SkillForm(request.POST, instance=skill)
         if form.is_valid():
             form.save()
             messages.success(request, 'Навык был успешно обновлен!')

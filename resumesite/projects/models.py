@@ -24,6 +24,9 @@ class Project(models.Model):
         verbose_name = 'Проект'
         verbose_name_plural = "Проекты"
 
+        ordering = ['created']
+        #ordering = ['-created'] - Сортировка по убыванию
+
 class Review(models.Model):
     VOTE_TYPE = (
         ('up', 'Up Vote'),
